@@ -19,5 +19,17 @@ Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
 
 Route::group(['middleware' => 'auth'], function () {
+
+    /* Auth */
     Route::post('/logout', 'AuthController@logout');
+
+    /* Users */
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/', 'UserController@index');
+        Route::get('/{user}', 'UserController@show');
+    });
+
+    /* Products */
+    Route::apiResource('products', 'ProductController');
+
 });

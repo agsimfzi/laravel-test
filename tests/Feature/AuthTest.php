@@ -44,6 +44,16 @@ class AuthTest extends TestCase
             ->assertJsonPath('user.email', $user->email);
     }
 
+    public function test_user_can_refresh_token()
+    {
+        $user = User::factory()->create();
+        $token = JWTAuth::fromUser($user);
+        $response = $this->actingAs($user)
+            ->get('/refresh-token?token='.$token);
+
+        $response->assertOk();
+    }
+
     public function test_user_can_logout()
     {
         $user = User::factory()->create();

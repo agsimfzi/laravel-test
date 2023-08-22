@@ -21,6 +21,7 @@ Route::post('/login', 'AuthController@login');
 Route::group(['middleware' => 'auth'], function () {
 
     /* Auth */
+    Route::get('/refresh-token', 'AuthController@refresh');
     Route::post('/logout', 'AuthController@logout');
 
     /* Users */
